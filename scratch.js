@@ -1,35 +1,54 @@
-((Scratch) => {
-    const MyExtensionInfo = {
-        id : 'MYEXTENSION',
-        name : '独自拡張練習',
-        blocks : [
-            {
-            
-                opcode : 'moveStep',
-                blockType : Scratch.BlockType.COMMAND,
-                text : '動かす [STEPS]',
-                arguments: {
-                    STEPS : {
-                        type: Scratch.ArgumentType.NUMBER,
-                        defaultValue: 10,
-                    },
+class test {
+    getInfo() {
+      return {
+        id: 'test',
+        name: 'test',
+        blocks: [
+          {
+            opcode: 'getname',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'スプライトの名前',
+          },
+
+          {
+            opcode: 'setxy',
+            blockType: Scratch.BlockType.COMMAND,
+            text: '移動 [x] [y]',
+            arguments: {
+                x : {
+                    type: Scratch.ArgumentType.NUMBER,
+                    defaultValue: 0,
                 },
-            
+                y : {
+                    type: Scratch.ArgumentType.NUMBER,
+                    defaultValue: 0,
+                },
             },
-        ],
+          },
+
+          {
+            opcode: 'xzutu',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'x座標を[value]ずつ変える',
+            arguments: {
+                value : {
+                    type: Scratch.ArgumentType.NUMBER,
+                    defaultValue: 0,
+                },
+            }
+          }
+        ]
+      };
     }
-    class MyExtension {
-        getInfo() {
-            return MyExtensionInfo;
-        }
-        moveStep ( args, util ) { // 引数は２つ必要です。
-            console.log(args.STEPS);
-            // const steps = Scratch.Cast.toNumber(args.STEPS);
-            // const radians = MathUtil.degToRad(90 - util.target.direction);
-            // const dx = steps * Math.cos(radians);
-            // const dy = steps * Math.sin(radians);
-            // util.target.setXY(util.target.x + dx, util.target.y + dy);
-        }
-    }    
-    Scratch.extensions.register( new MyExtension() );
-})(Scratch);
+  
+    getname(args,util) {
+      return util.target.getName();
+    };
+    setxy(args,util) {
+        util.target.setXY(args.x,args.y);
+    };
+    xzutu(args,util) {
+        util.target.setXY(util.target.x + args.value,util.target.y);
+    };
+  }
+  Scratch.extensions.register(new test());
