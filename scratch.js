@@ -1,3 +1,5 @@
+// https://docs.turbowarp.org/development/extensions/hello-world
+
 class test {
     getInfo() {
       return {
